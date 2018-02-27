@@ -2,16 +2,17 @@
 #include <fstream>
 #include <stdlib.h>
 #include <vector>
-// #include <string>
+#include <string>
 
 using namespace std;
 
-vector<string> DFS(vector<string> map, &vector<vector<int>> visited, &int count);
+void DFS(vector<string> map, vector< vector<int> > &visited, vector<string> &temp_path_map, int &count, int m, int n);
+int isvalid(vector<string> map, int i, int j);
 
 int main()
 {
 	fstream file;
-	file.open("input.txt");
+	file.open("input_2.txt");
 	vector<string> map;
 	string line;
 	while(getline(file,line))
@@ -19,7 +20,7 @@ int main()
 	for(int i=0; i < map.size(); i++)
 		cout<<map[i]<<endl;
 
-	vector<vector<int>> visited;
+	vector< vector<int> > visited;
 	vector<string> final_path_map;
 	for(int i = 0; i < map.size(); i++)
 	{
@@ -41,7 +42,8 @@ int main()
 			if(visited[i][j] != 0)
 				continue;
 			int current_count = 0;
-			vector<string> temp_path_map = DFS(map, &visited, &current_count);
+			vector<string> temp_path_map = map;
+			DFS(map, visited, temp_path_map, current_count, i, j);
 			if(current_count > max_count)
 			{
 				final_path_map = temp_path_map;
@@ -66,7 +68,19 @@ int isvalid(vector<string> map, int i, int j)
 	return 1;
 }
 
-vector<string> DFS(vector<string> map, &vector<vector<int>> visited, &int count)
+void DFS(vector<string> map, vector< vector<int> > &visited, vector<string> &temp_path_map, int &count, int m, int n)
 {
-	
+	// cout<<count<<endl;
+	if(isvalid(map, m, n) == 0) return;
+	temp_path_map[m][n] = '*';
+	count++;
+	visited[m][n] = 1;
+	if(isvalid(map,m-1,n))
+		if(visited[m-1][n] == 0) DFS(map, visited, temp_path_map, count, m-1, n);
+	if(isvalid(map,m,n-1))
+		if(visited[m][n-1] == 0) DFS(map, visited, temp_path_map, count, m, n-1);
+	if(isvalid(map,m+1,n))
+		if(visited[m+1][n] == 0) DFS(map, visited, temp_path_map, count, m+1, n);
+	if(isvalid(map,m,n+1))
+		if(visited[m][n+1] == 0) DFS(map, visited, temp_path_map, count, m, n+1);
 }
