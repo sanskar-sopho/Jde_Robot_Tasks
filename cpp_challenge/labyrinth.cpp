@@ -12,7 +12,7 @@ int isvalid(vector<string> map, int i, int j);
 int main()
 {
 	fstream file;
-	file.open("input_2.txt");
+	file.open("input.txt");
 	vector<string> map;
 	string line;
 	while(getline(file,line))
@@ -57,7 +57,20 @@ int main()
 	cout<<"\nLength of path : "<<max_count;
 	cout<<"\nFinal traversal path is \n";
 	for(int i=0; i < final_path_map.size(); i++)
-		cout<<final_path_map[i]<<endl;
+	{
+		for(int j=0; final_path_map[i][j] != '\0'; j++)
+		{
+			if((int)final_path_map[i][j] == 35 || (int)final_path_map[i][j] == 46)
+				cout<<final_path_map[i][j]<<' ';
+			else 
+			{
+				int no = ((int)final_path_map[i][j] - 49);
+				if(no>9) cout<<no;
+				else cout<<no<<' ';
+			}
+		}
+		cout<<endl;
+	}
 	return 0;
 }
 
@@ -75,7 +88,6 @@ int DFS(vector<string> map, vector< vector<int> > &visited, vector<string> &path
 {
 	// cout<<count<<endl;
 	if(isvalid(map, m, n) == 0) return 0;
-	path_map[m][n] = '*';
 	visited[m][n] = 1;
 
 	int max_count = 0;
@@ -130,5 +142,6 @@ int DFS(vector<string> map, vector< vector<int> > &visited, vector<string> &path
 			}
 		}
 
+	path_map[m][n] = (char)(48+1+max_count);
 	return 1 + max_count;
 }
