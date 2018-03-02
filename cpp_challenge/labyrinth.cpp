@@ -9,10 +9,13 @@ using namespace std;
 int DFS(vector<string> map, vector< vector<int> > &visited, vector<string> &path_map, int m, int n);
 int isvalid(vector<string> map, int i, int j);
 
-int main()
+int main(int argc,char** argv)
 {
 	fstream file;
-	file.open("input.txt");
+	if(argc>1)
+		file.open(argv[1]);
+	else
+		file.open("../input.txt");
 	vector<string> map;
 	string line;
 	while(getline(file,line))
