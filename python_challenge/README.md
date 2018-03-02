@@ -1,10 +1,10 @@
 # Python Challenge
 Implement Game Of Life
 ## To run the program
-'''sh
+```sh
 python3 Game.py
-'''
+```
 ## To run the tests
-'''sh
+```sh
 python3 Test.py
-'''
+```
