@@ -1,2 +1,2 @@
-# Jde_Robot_Tasks
+# JdeRobot_Tasks
 This repository contains my submissions for JdeRobot GSOC Challenges.
